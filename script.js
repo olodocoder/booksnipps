@@ -1,19 +1,28 @@
 const form = document.getElementById('snippet-form');
 const submitBtn = document.getElementById('snippet-submit');
 const bookTitle = document.getElementById('book-title');
+// book
+const bkForm = document.getElementById('book-form');
+const bkSubmitBtn = document.getElementById('book-submit');
+const bkTitle = document.getElementById('bk-title');
+// end
 const snippText = document.getElementById('snippet-text');
 const category = document.getElementById('category');
 const snippList = document.getElementById('snippets-list');
 const addSec = document.getElementById('add-section');
-const showFormBtn = document.getElementById('show-form-btn');
+const addBook = document.getElementById('add-book');
+const showSnipFormBtn = document.getElementById('show-form-btn');
 const catFilter = document.getElementById('category-filter');
 const inpSearch = document.getElementById('search-input');
 const allSnipps = document.getElementById('all-snipps');
+const showBookFormBtn = document.getElementById('show-form-book');
 
 function addSnipp(e) {
   e.preventDefault();
   if (bookTitle.value === '' || snippText.value === '') {
-    alert('please add something');
+    alert(
+      'please add a book and a snippet! Note: You must add a book using the book form first'
+    );
     return;
   }
   addSnipptoDOM(
@@ -24,7 +33,7 @@ function addSnipp(e) {
 
   bookTitle.value = '';
   snippText.value = '';
-  showForm();
+  showSnipForm();
 }
 
 function addSnipptoDOM(title, snipp, category) {
@@ -41,13 +50,27 @@ function addSnipptoDOM(title, snipp, category) {
   showFilterAndSearch();
 }
 
-function showForm() {
+function showSnipForm() {
   if (addSec.style.display !== 'none') {
     addSec.style.display = 'none';
-    showFormBtn.textContent = 'Add a Snipp';
+    showSnipFormBtn.textContent = 'Add a Snipp';
+    return true;
   } else {
     addSec.style.display = 'block';
-    showFormBtn.textContent = 'Hide Form';
+    showSnipFormBtn.textContent = 'Hide Form';
+    return false;
+  }
+}
+
+function showBookForm() {
+  if (addBook.style.display !== 'none') {
+    addBook.style.display = 'none';
+    showBookFormBtn.textContent = 'Add a Book';
+    return true;
+  } else {
+    addBook.style.display = 'block';
+    showBookFormBtn.textContent = 'Hide Form';
+    return false;
   }
 }
 
@@ -75,18 +98,37 @@ function getItemsFromStorage() {
   }
   return itemsFromStorage;
 }
+
 function addItemToStorage(item) {
   const itemsFromStorage = getItemsFromStorage();
   itemsFromStorage.push(item);
   localStorage.setItem('snipps', JSON.stringify(itemsFromStorage));
 }
 
+function getBooksFromLS() {
+  let booksFromLS;
+  if (localStorage.getItem('books') === null) {
+    booksFromLS = [];
+  } else {
+    booksFromLS = JSON.parse(localStorage.getItem('books'));
+  }
+  return booksFromLS;
+}
+function addBookToLS(item) {
+  const booksFromLS = getBooksFromLS();
+  booksFromLS.push(item);
+  localStorage.setItem('books', JSON.stringify(booksFromLS));
+}
 function clearLis() {
   snippList.innerHTML = '';
+}
+function clearOpts() {
+  bookTitle.innerHTML = '';
 }
 
 function loadUI() {
   clearLis();
+  clearOpts();
   const LSData = getItemsFromStorage();
   if (LSData.length !== 0) {
     LSData.forEach((snippet) => {
@@ -98,9 +140,8 @@ function loadUI() {
     allSnipps.innerText = 'Start adding your snipps to see them here 👇🏿';
   }
   showFilterAndSearch();
+  addOptToSelect();
 }
-
-showForm();
 
 function filterByCategory(e) {
   if (e.target.value === '') {
@@ -135,7 +176,6 @@ function capitalize(str) {
 }
 
 function searchSnips(e) {
-  console.log(e.target.value);
   const LSData = getItemsFromStorage();
   const filtered = LSData.filter((snip) => {
     return snip.snipp.toLowerCase().includes(e.target.value);
@@ -184,11 +224,44 @@ function showFilterAndSearch() {
     inpSearch.style.display = 'block';
   }
 }
+
+function addBk(e) {
+  e.preventDefault();
+  console.log(bkTitle.value);
+  if (bkTitle.value === '') {
+    alert('please add something');
+    return;
+  }
+
+  addBookToLS(bkTitle.value);
+
+  bkTitle.value = '';
+  showBookForm();
+  loadUI();
+}
+
+function addOptToSelect() {
+  const booksFromLS = getBooksFromLS();
+
+  booksFromLS.forEach((book) => {
+    const opt = document.createElement('option');
+    opt.value = book;
+    opt.textContent = book;
+    bookTitle.appendChild(opt);
+  });
+}
+
 // event listeners
 submitBtn.addEventListener('click', addSnipp);
-showFormBtn.addEventListener('click', showForm);
+bkSubmitBtn.addEventListener('click', addBk);
+showSnipFormBtn.addEventListener('click', showSnipForm);
+showBookFormBtn.addEventListener('click', showBookForm);
 catFilter.addEventListener('change', filterByCategory);
 inpSearch.addEventListener('input', searchSnips);
 snippList.addEventListener('click', deleteSnipp);
 window.addEventListener('DOMContentLoaded', loadUI);
 window.addEventListener('DOMContentLoaded', showFilterAndSearch);
+
+addOptToSelect();
+showSnipForm();
+showBookForm();

@@ -2,6 +2,11 @@
   margin-top: 20px;
 }
 
+#frm-btns {
+  display: flex;
+  justify-self: flex-start;
+}
+
 button {
   background: #000000;
   color: #ffffff;
@@ -123,6 +128,10 @@ button:hover {
 
 .snippets-display h2 {
   margin-top: 0;
+}
+
+.snippets-display {
+  margin-bottom: 50px;
 }
 
 #snippets-list {

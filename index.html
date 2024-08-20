@@ -18,14 +18,26 @@
       <header>
         <h1>BookSnipps</h1>
       </header>
-      <button id="show-form-btn">Show Form</button>
+      <div id="frm-btns">
+        <button id="show-form-btn">Show Snipp Form</button>
+        <button id="show-form-book">Add Book</button>
+      </div>
+      <section id="add-book" class="add-book">
+        <h2>Add Book</h2>
+        <form id="book-form">
+          <label for="book-title">Book Title:</label>
+          <input type="text" id="bk-title" name="book-title" required />
+
+          <button id="book-submit" type="submit">Add Book</button>
+        </form>
+      </section>
       <main>
         <section id="add-section" class="add-snippet">
           <h2>Add Snipp</h2>
           <form id="snippet-form">
             <label for="book-title">Book Title:</label>
-            <input type="text" id="book-title" name="book-title" required />
-
+            <!-- <input type="text" id="book-title" name="book-title" required /> -->
+            <select id="book-title" name="book-title" required></select>
             <label for="snippet-text">Snippet:</label>
             <textarea
               id="snippet-text"
