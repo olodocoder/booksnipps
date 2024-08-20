@@ -103,6 +103,10 @@ function loadUI() {
 showForm();
 
 function filterByCategory(e) {
+  if (e.target.value === '') {
+    loadUI();
+    return;
+  }
   const LSData = getItemsFromStorage();
 
   const filtered = LSData.filter((snip) => {
