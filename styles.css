@@ -1,0 +1,110 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #000;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #000;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  margin-top: 20px;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#show-form-btn {
+  width: 100%;
+}
+
+#search-input {
+  width: 97%;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+#category-filter {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.add-snippet {
+  margin-bottom: 20px;
+}
+
+.add-snippet h2 {
+  margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input[type='text'],
+textarea,
+select {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.snippets-display h2 {
+  margin-top: 0;
+}
+
+#snippets-list {
+  list-style: none;
+  padding: 0;
+}
+
+#snippets-list li {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}

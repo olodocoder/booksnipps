@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookSnipps</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>BookSnipps</h1>
+      </header>
+      <button id="show-form-btn">Show Form</button>
+      <main>
+        <section id="add-section" class="add-snippet">
+          <h2>Add Snipp</h2>
+          <form id="snippet-form">
+            <label for="book-title">Book Title:</label>
+            <input type="text" id="book-title" name="book-title" required />
+
+            <label for="snippet-text">Snippet:</label>
+            <textarea
+              id="snippet-text"
+              name="snippet-text"
+              rows="4"
+              required
+            ></textarea>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+              <option value="fiction">Fiction</option>
+              <option value="non-fiction">Non-Fiction</option>
+              <option value="self-help">Self Help</option>
+              <option value="philosophy">Philosophy</option>
+            </select>
+
+            <button id="snippet-submit" type="submit">Add Snippet</button>
+          </form>
+        </section>
+        <section class="filter-section">
+          <input type="text" id="search-input" placeholder="Search snipps..." />
+          <select id="category-filter">
+            <option value="">Filter by Category</option>
+            <option value="fiction">Fiction</option>
+            <option value="non-fiction">Non-Fiction</option>
+            <option value="self-help">Self Help</option>
+            <option value="philosophy">Philosophy</option>
+          </select>
+        </section>
+        <section class="snippets-display">
+          <h2>All Snipps</h2>
+          <ul id="snippets-list">
+            <!-- <li>
+              <strong>Title:</strong> The Great Gatsby<br />
+              <strong>Category:</strong> Fiction<br />
+              <p>
+                "So we beat on, boats against the current, borne back
+                ceaselessly into the past."
+              </p>
+            </li>
+            <li>
+              <strong>Title:</strong> Sapiens: A Brief History of Humankind<br />
+              <strong>Category:</strong> Non-Fiction<br />
+              <p>
+                "Homo sapiens are the only surviving members of the genus Homo,
+                which includes several other species."
+              </p>
+            </li>
+            <li>
+              <strong>Title:</strong> A Brief History of Time<br />
+              <strong>Category:</strong> Science<br />
+              <p>"The universe does not have any purpose; it just is."</p>
+            </li> -->
+            <!-- Book snippets will be dynamically inserted here -->
+          </ul>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
