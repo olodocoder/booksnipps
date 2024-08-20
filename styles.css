@@ -1,3 +1,32 @@
+.actions {
+  margin-top: 20px;
+}
+
+button {
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+button i {
+  margin-right: 5px;
+}
+
+.edit-btn:hover {
+  background: #333333;
+}
+
+.delete-btn:hover {
+  background: #cc0000;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -99,6 +128,9 @@ button:hover {
 #snippets-list {
   list-style: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
 }
 
 #snippets-list li {
@@ -107,4 +139,9 @@ button:hover {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 4px;
+}
+
+#footer {
+  color: #ffffff;
+  text-decoration: none;
 }

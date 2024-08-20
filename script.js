@@ -28,14 +28,7 @@ function addSnipp(e) {
 }
 
 function addSnipptoDOM(title, snipp, category) {
-  const li = document.createElement('li');
-  li.innerHTML = `
-    <strong>Title:</strong> ${title}<br />
-    <strong>Category:</strong> ${category}<br />
-     <strong>Snipp:</strong>👇🏿<p>
-     ${snipp}
-    </p>
-    `;
+  const li = createLi(title, category, snipp);
   snippList.appendChild(li);
 
   const data = {
@@ -45,6 +38,7 @@ function addSnipptoDOM(title, snipp, category) {
   };
 
   addItemToStorage(data);
+  showFilterAndSearch();
 }
 
 function showForm() {
@@ -58,6 +52,20 @@ function showForm() {
 }
 
 // Utils
+
+function createLi(titl, cat, snipp) {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <strong>Title:</strong> ${titl}<br />
+    <strong>Category:</strong> ${cat}<br />
+     <strong>Snipp:</strong>👇🏿<p>
+     ${snipp}
+    </p>
+    <button id="delete" class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+    `;
+  return li;
+}
+
 function getItemsFromStorage() {
   let itemsFromStorage;
   if (localStorage.getItem('snipps') === null) {
@@ -82,21 +90,17 @@ function loadUI() {
   const LSData = getItemsFromStorage();
   if (LSData.length !== 0) {
     LSData.forEach((snippet) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-    <strong>Title:</strong> ${snippet.title}<br />
-    <strong>Category:</strong> ${snippet.category}<br />
-    <strong>Snipp:</strong>👇🏿<p>
-    ${snippet.snipp}
-   </p>
-    `;
+      const li = createLi(snippet.title, snippet.category, snippet.snipp);
+
       snippList.appendChild(li);
     });
   } else {
     allSnipps.innerText = 'Start adding your snipps to see them here 👇🏿';
   }
-  showForm();
+  showFilterAndSearch();
 }
+
+showForm();
 
 function filterByCategory(e) {
   const LSData = getItemsFromStorage();
@@ -105,17 +109,9 @@ function filterByCategory(e) {
     return snip.category == capitalize(e.target.value);
   });
   clearLis();
-  //   console.log(filtered);
   if (filtered.length !== 0) {
     filtered.forEach((snippet) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-    <strong>Title:</strong> ${snippet.title}<br />
-    <strong>Category:</strong> ${snippet.category}<br />
-    <p>
-    <strong>Snipp:</strong>  ${snippet.snipp}
-    </p>
-    `;
+      const li = createLi(snippet.title, snippet.category, snippet.snipp);
 
       snippList.appendChild(li);
     });
@@ -143,14 +139,8 @@ function searchSnips(e) {
   clearLis();
   if (filtered.length !== 0) {
     filtered.forEach((snippet) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-    <strong>Title:</strong> ${snippet.title}<br />
-    <strong>Category:</strong> ${snippet.category}<br />
-    <strong>Snipp:</strong>👇🏿<p>
-     ${snippet.snipp}
-    </p>
-    `;
+      const li = createLi(snippet.title, snippet.category, snippet.snipp);
+
       snippList.appendChild(li);
     });
   } else {
@@ -164,22 +154,37 @@ function searchSnips(e) {
 }
 
 function deleteSnipp(e) {
-  if (e.target.tagName === 'P') {
-    let cont = e.target.textContent;
+  const deleteSnip = document.getElementById('delete');
+  if (e.target.tagName === 'BUTTON' && e.target.id === 'delete') {
+    let cont = e.target.previousElementSibling.textContent.trim();
     const LSData = getItemsFromStorage();
-    const refreshLSD = LSData.filter(
-      (snip) => !snip.snipp.includes(cont.trim())
-    );
-    localStorage.setItem('snipps', JSON.stringify(refreshLSD));
+    if (confirm(`Are you sure you want to delete ${cont}?`)) {
+      const refreshLSD = LSData.filter(
+        (snip) => !snip.snipp.includes(cont.trim())
+      );
+      localStorage.setItem('snipps', JSON.stringify(refreshLSD));
+    }
 
+    showFilterAndSearch();
     loadUI();
   }
 }
 
+function showFilterAndSearch() {
+  const LSData = getItemsFromStorage();
+  if (LSData.length <= 4) {
+    catFilter.style.display = 'none';
+    inpSearch.style.display = 'none';
+  } else {
+    catFilter.style.display = 'block';
+    inpSearch.style.display = 'block';
+  }
+}
 // event listeners
 submitBtn.addEventListener('click', addSnipp);
 showFormBtn.addEventListener('click', showForm);
 catFilter.addEventListener('change', filterByCategory);
 inpSearch.addEventListener('input', searchSnips);
-snippList.addEventListener('dblclick', deleteSnipp);
+snippList.addEventListener('click', deleteSnipp);
 window.addEventListener('DOMContentLoaded', loadUI);
+window.addEventListener('DOMContentLoaded', showFilterAndSearch);
