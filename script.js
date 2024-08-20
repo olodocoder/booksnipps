@@ -8,6 +8,7 @@ const addSec = document.getElementById('add-section');
 const showFormBtn = document.getElementById('show-form-btn');
 const catFilter = document.getElementById('category-filter');
 const inpSearch = document.getElementById('search-input');
+const allSnipps = document.getElementById('all-snipps');
 
 function addSnipp(e) {
   e.preventDefault();
