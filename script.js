@@ -79,17 +79,21 @@ function clearLis() {
 function loadUI() {
   clearLis();
   const LSData = getItemsFromStorage();
-  LSData.forEach((snippet) => {
-    const li = document.createElement('li');
-    li.innerHTML = `
+  if (LSData.length !== 0) {
+    LSData.forEach((snippet) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
     <strong>Title:</strong> ${snippet.title}<br />
     <strong>Category:</strong> ${snippet.category}<br />
     <strong>Snipp:</strong>👇🏿<p>
     ${snippet.snipp}
    </p>
     `;
-    snippList.appendChild(li);
-  });
+      snippList.appendChild(li);
+    });
+  } else {
+    allSnipps.innerText = 'Start adding your snipps to see them here 👇🏿';
+  }
   showForm();
 }
 
